@@ -1,32 +1,50 @@
 var randomResult;
-var lost;
-var win;
+var lost = 0;
+var win = 0;
 var previous = 0;
 
-randomResult = Math.floor(Math.random() * 101) + 19;
+var startReset = function() {
 
-$("#result").html("Random Result: " + randomResult);
+  $(".crystals").empty();
 
-for (var i = 0; i < 4; i++) {
+  randomResult = Math.floor(Math.random() * 101) + 19;
 
+  $("#result").html("Random Result: " + randomResult);
+
+  for (var i = 0; i < 4; i++) {
     var random = Math.floor(Math.random() * 12) + 1;
 
     var crystal = $("<div>");
     crystal.attr({
-        "class": "crystal", "result-random": random
+      class: "crystal",
+      "result-random": random
     });
 
+    crystal.html(random);
+
     $(".crystals").append(crystal);
-}
+  }
+};
+startReset();
 
-$(".crystal").on("click", function () {
+$(".crystal").on("click", function() {
+  var num = parseInt($(this).attr("result-random"));
+  previous += num;
 
-    var num = parseInt($(this).attr("result-random"));
-    previous += num;
-    
-    console.log(previous);
+  console.log(previous);
 
-})
+  if (previous > randomResult) {
+    lost--;
+    $("#lost").html(lost);
+
+    startReset();
+  } else if (previous === randomResult) {
+    win++;
+    $("#win").html(win);
+
+    startReset();
+  }
+});
 
 // Psuedo Code
 
@@ -38,10 +56,10 @@ $(".crystal").on("click", function () {
 
 // Every Crystal is attached a random number between 1-12.
 
-// Each time we click on a Crystal, it should be adding the 
+// Each time we click on a Crystal, it should be adding the
 // curent Crystal value to the Crystals number value chosen // prior.
 
-// Crystal Values are added until your score equals that 
+// Crystal Values are added until your score equals that
 // of the Random Number.
 
 // If it is greater than Random Result, we lose and loss
