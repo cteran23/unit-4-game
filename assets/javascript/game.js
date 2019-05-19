@@ -2,9 +2,18 @@ var randomResult;
 var lost;
 var win;
 
+randomResult = Math.floor(Math.random() * 101) + 19;
+
+$("#result").html('Random Result: ' + randomResult);
+
 for(var i = 0; i < 4; i++){
+
+    var random = Math.floor(Math.random() * 12) + 1;
+    
     var crystal = $("<div>");
-        crystal.attr("class", 'crystal');
+        crystal.attr({
+            "class": 'crystal', "data-random": random
+        });
         $(".crystals").append(crystal);
 }
 
