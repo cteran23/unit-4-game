@@ -1,3 +1,14 @@
+var randomResult;
+var lost;
+var win;
+
+for(var i = 0; i < 4; i++){
+    var crystal = $("<div>");
+        crystal.attr("class", 'crystal');
+        $(".crystals").append(crystal);
+}
+
+
 // Psuedo Code
 
 // We need to generate a Random Number on the screen.
